@@ -1,0 +1,54 @@
+#include <iostream> 
+#include <vector> using 
+namespace std;
+const int MAX_CITIES = 10; // Maximum number of cities 
+const int INF = 999; 
+int a[MAX_CITIES][MAX_CITIES], visited[MAX_CITIES], n, cost = 0; 
+void get() { 
+ int i, j; 
+ cout << "Enter No. of Cities: "; cin >> n; cout << 
+"\nEnter Cost Matrix:\n"; for (i = 0; i < n; i++) { 
+cout << "\nEnter Elements of Row " << i + 1 << ":\n"; 
+ for (j = 0; j < n; j++) 
+cin >> a[i][j]; visited[i] 
+= 0; 
+ } 
+ cout << "\n\nThe cost list is:\n\n"; 
+for (i = 0; i < n; i++) { cout << 
+"\n\n"; for (j = 0; j < n; j++) 
+cout << "\t " << a[i][j]; 
+ } 
+} 
+int minimum(int c) { 
+ int i, nc = INF; int min = INF, kmin; for 
+(i = 0; i < n; i++) { if ((a[c][i] != 0) && 
+(visited[i] == 0)) if (a[c][i] < min) { 
+min = a[c][i]; // Fixed the typo here 
+kmin = a[c][i]; nc = i; 
+ }
+} 
+ if (min != INF) 
+cost += kmin; 
+return nc; 
+} 
+void mincost(int city) { 
+ int i, ncity; visited[city] 
+= 1; cout << city + 1 << " 
+-> "; ncity = 
+minimum(city); if (ncity 
+== INF) { ncity = 0; 
+cout << ncity + 1; cost 
++= a[city][ncity]; 
+return; 
+ } 
+ mincost(ncity); 
+} 
+void put() { cout << 
+"\n\nMinimum cost: "; cout << 
+cost; 
+} 
+int main() { get(); cout << 
+"\n\nThe Path is:\n\n"; 
+mincost(0); put();
+return 0; 
+}
